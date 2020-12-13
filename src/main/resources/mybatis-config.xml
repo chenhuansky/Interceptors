@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--可以在peoperty中配置属性但是默认以外部配置为最高优先级-->
+    <properties resource="db.properties">
+    </properties>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type="seu.pojo.Student" alias="student01"/>
+        <package name="seu.pojo"/>
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="seu.pojo.TestIntercepter">
+            <property name="testProp" value="100"></property>
+        </plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--resource绑定的路径用/-->
+        <mapper class="seu.mapper.StudentMapper" />
+
+
+    </mappers>
+</configuration>
